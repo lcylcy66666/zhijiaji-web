@@ -47,16 +47,30 @@
       `<circle cx="${cx}" cy="${cy}" r="17" fill="#2b2d31"/>` +
       `<circle cx="${cx}" cy="${cy}" r="11.5" fill="#0c0d10"/>` +
       `<circle cx="${cx - 4}" cy="${cy - 4}" r="3" fill="#fff" opacity=".35"/>`;
-    const lx = x + 46;
-    const l1 = winY + 28;
-    const l2 = winY + winH - 28;
-    const camera = model.lenses === 3
-      ? `<rect x="${x + 18}" y="${winY + 6}" width="${w - 36}" height="${winH - 12}" rx="20" fill="${shade(PHONE, 0.18)}"/>` +
+    // The case's camera window follows the phone's camera: a square bump at the top left
+    // (iPhone 16 Pro) or a full-width plateau (iPhone 17 Pro and later)
+    let camera;
+    if (model.camera === "square") {
+      const bx = x + 18;
+      const by = winY + 6;
+      const bs = winH - 12;
+      camera =
+        `<rect x="${x + 12}" y="${winY}" width="${winH}" height="${winH}" rx="26" fill="${PHONE}"/>` +
+        `<rect x="${bx}" y="${by}" width="${bs}" height="${bs}" rx="22" fill="${shade(PHONE, 0.18)}"/>` +
+        lens(bx + 24, by + 24) + lens(bx + 24, by + bs - 24) + lens(bx + bs - 26, by + bs / 2) +
+        `<circle cx="${bx + bs - 20}" cy="${by + 16}" r="6" fill="#f1ece2"/>` +
+        `<circle cx="${bx + bs - 20}" cy="${by + bs - 16}" r="5" fill="#2b2d31"/>`;
+    } else {
+      const lx = x + 46;
+      const l1 = winY + 28;
+      const l2 = winY + winH - 28;
+      camera =
+        `<rect x="${x + 12}" y="${winY}" width="${w - 24}" height="${winH}" rx="26" fill="${PHONE}"/>` +
+        `<rect x="${x + 18}" y="${winY + 6}" width="${w - 36}" height="${winH - 12}" rx="20" fill="${shade(PHONE, 0.18)}"/>` +
         lens(lx, l1) + lens(lx, l2) + lens(lx + 38, (l1 + l2) / 2) +
-        `<circle cx="${x + w - 44}" cy="${l1}" r="7" fill="#f1ece2"/><circle cx="${x + w - 44}" cy="${l2}" r="3.5" fill="#2b2d31"/>`
-      : `<rect x="${x + 18}" y="${winY + 6}" width="58" height="${winH - 12}" rx="20" fill="${shade(PHONE, 0.18)}"/>` +
-        lens(lx - 1, l1) + lens(lx - 1, l2) +
-        `<circle cx="${x + 92}" cy="${(l1 + l2) / 2}" r="6" fill="#f1ece2"/>`;
+        `<circle cx="${x + w - 44}" cy="${l1}" r="7" fill="#f1ece2"/>` +
+        `<circle cx="${x + w - 44}" cy="${l2}" r="3.5" fill="#2b2d31"/>`;
+    }
 
     return `
 <svg viewBox="0 0 240 470" role="img" aria-label="${model.name} Rear Display Case in ${color.name} (illustration)">
@@ -84,7 +98,6 @@
   <rect x="${x + w - 2}" y="${y + h * 0.31}" width="5" height="58" rx="2" fill="${edge}"/>
   <rect x="${x - 3}" y="${y + h * 0.24}" width="5" height="30" rx="2" fill="${edge}"/>
   <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="34" fill="${body}" stroke="${edge}" stroke-width="1.5"/>
-  <rect x="${x + 12}" y="${winY}" width="${w - 24}" height="${winH}" rx="26" fill="${PHONE}"/>
   ${camera}
   <g clip-path="url(#${id}-screen)">
     <rect x="${x + 16}" y="${dispY}" width="${w - 32}" height="${dispH}" fill="url(#${id}-scene)"/>
