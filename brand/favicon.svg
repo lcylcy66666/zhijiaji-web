@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="23 24 87 81">
+  <style>
+    g { fill: #6f6253; }
+    @media (prefers-color-scheme: dark) { g { fill: #e6dac6; } }
+  </style>
+  <defs>
+    <mask id="outside-orbit" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <path fill="#000" d="M8 70a52 14 0 1 0 104 0a52 14 0 1 0 -104 0Z"/>
+      <path fill="none" stroke="#000" stroke-width="5" d="M8 70a52 14 0 0 0 104 0"/>
+    </mask>
+    <mask id="z-corner" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="200">
+      <rect x="-40" y="-40" width="200" height="200" fill="#fff"/>
+      <rect x="86" y="44" width="17" height="26" fill="#000"/>
+      <circle cx="60" cy="60" r="32" fill="#fff"/>
+    </mask>
+  </defs>
+  <g fill-rule="evenodd" transform="rotate(-40 60 60)">
+    <path mask="url(#outside-orbit)"
+          d="M28 60a32 32 0 1 0 64 0a32 32 0 1 0 -64 0Z M29 60a28 20 0 1 0 56 0a28 20 0 1 0 -56 0Z"/>
+    <path mask="url(#z-corner)"
+          d="M8 70a52 14 0 1 0 104 0a52 14 0 1 0 -104 0Z M18 72a45 7 0 1 0 90 0a45 7 0 1 0 -90 0Z"/>
+  </g>
+</svg>

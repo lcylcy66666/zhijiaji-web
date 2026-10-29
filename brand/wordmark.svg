@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 859 100" role="img" aria-label="ZHIJIAJI">
+  <title>ZHIJIAJI</title>
+  <g fill="currentColor">
+    <!-- Z -->
+    <path d="M0 0H122V14L25 86H122V100H0V86L97 14H0Z"/>
+    <!-- H -->
+    <path d="M167 0H181V43H263V0H277V100H263V57H181V100H167Z"/>
+    <!-- I -->
+    <path d="M324 0H338V100H324Z"/>
+    <!-- J -->
+    <path d="M436 0H450V60A40 40 0 0 1 410 100H377V86H410A26 26 0 0 0 436 60Z"/>
+    <!-- I -->
+    <path d="M493 0H507V100H493Z"/>
+    <!-- A drawn as Λ, no crossbar -->
+    <path d="M546 100L619 0L692 100H673.4L619 25.5L564.6 100Z"/>
+    <!-- J -->
+    <path d="M788 0H802V60A40 40 0 0 1 762 100H729V86H762A26 26 0 0 0 788 60Z"/>
+    <!-- I -->
+    <path d="M845 0H859V100H845Z"/>
+  </g>
+</svg>
