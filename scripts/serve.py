@@ -1,22 +1,15 @@
 """Local preview server.
 
-index.html is written for the Claude artifact host, which adds the document
-skeleton (doctype, <html>, <head>, <body>) at publish time. This server adds
-the same skeleton so the page renders in standards mode locally, and serves
-every other file as is.
+Serves the project folder as is, except index.html, which gets the same
+document skeleton as the GitHub Pages build (see build.py), so the page
+renders in standards mode the way it does once published.
 
     python3 scripts/serve.py [port]
 """
 import http.server
-import pathlib
 import sys
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-SKELETON = (
-    '<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
-    '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'
-    "</head>\n<body>\n{body}\n</body>\n</html>\n"
-)
+from build import ROOT, wrap
 
 
 class Handler(http.server.SimpleHTTPRequestHandler):
@@ -25,8 +18,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path.split("?")[0] in ("/", "/index.html"):
-            body = (ROOT / "index.html").read_text(encoding="utf-8")
-            page = SKELETON.format(body=body).encode("utf-8")
+            page = wrap((ROOT / "index.html").read_text(encoding="utf-8")).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")
             self.send_header("Cache-Control", "no-store")

@@ -12,7 +12,9 @@ Single-page product site for the ZHIJIAJI (智佳际) Rear Display Case. English
 | `models.js` | Model and color data (edit this to change models, colors or photos) |
 | `assets/` | Brand film, its poster frame, feature and in-the-box images |
 | `brand/` | Logo redrawn as SVG (wordmark, symbol, favicon) and its preview page |
+| `scripts/build.py` | Builds `dist/` for GitHub Pages or any static host |
 | `scripts/serve.py` | Local preview server |
+| `.github/workflows/pages.yml` | Builds and deploys to GitHub Pages on every push to `main` |
 
 ## Preview locally
 
@@ -31,4 +33,9 @@ Then open http://127.0.0.1:4173.
 
 ## Hosting
 
-`index.html` has no `<!doctype>`, `<html>`, `<head>` or `<body>`: the Claude artifact host adds them when the page is published. Before moving to another static host, wrap the file in a normal document (the skeleton in `scripts/serve.py` is enough). Everything else is plain static files.
+The site is published in two places from the same files:
+
+- **Claude artifact**: `index.html` is published as is, with the other files alongside. It has no `<!doctype>`, `<html>`, `<head>` or `<body>` because the artifact host adds them.
+- **GitHub Pages**: `scripts/build.py` adds that document skeleton and copies everything into `dist/`; the workflow deploys `dist/` on every push to `main`.
+
+The build adds `<meta name="robots" content="noindex">` while the site is a preview. Set `NOINDEX = False` in `scripts/build.py` when it goes live.
